@@ -11,7 +11,7 @@ from .const import DOMAIN, API_URL, UPDATE_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
-class UnisonOutagesDataUpdateCoordinator(DataUpdateCoordinator):
+class UnisonNzDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching Unison outages data."""
 
     def __init__(self, hass: HomeAssistant) -> None:

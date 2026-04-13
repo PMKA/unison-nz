@@ -20,7 +20,7 @@ from ..const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-class UnisonOutagesBaseSensor(CoordinatorEntity, SensorEntity):
+class UnisonNzBaseSensor(CoordinatorEntity, SensorEntity):
     """Base class for Unison Outages sensors."""
 
     def __init__(

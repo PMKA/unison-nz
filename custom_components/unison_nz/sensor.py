@@ -7,7 +7,7 @@ from .const import DOMAIN, CONF_REGION, DEFAULT_REGION
 from .sensors import (
     UnisonCurrentOutagesSensor,
     UnisonUpcomingOutagesSensor,
-    UnisonOutageStatsSensor,
+    UnisonNztatsSensor,
 )
 
 async def async_setup_entry(
@@ -22,7 +22,7 @@ async def async_setup_entry(
     sensors = [
         UnisonCurrentOutagesSensor(coordinator, entry, region),
         UnisonUpcomingOutagesSensor(coordinator, entry, region),
-        UnisonOutageStatsSensor(coordinator, entry, region)
+        UnisonNztatsSensor(coordinator, entry, region)
     ]
     
     async_add_entities(sensors, True)

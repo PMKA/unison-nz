@@ -20,7 +20,7 @@ from .const import (
     REGIONS,
 )
 
-class UnisonOutagesConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+class UnisonNzConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Unison Outages."""
 
     VERSION = 1

@@ -36,22 +36,22 @@ jobs:
         run: |
           VERSION="${{ steps.version.outputs.version }}"
           sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" \
-            custom_components/unison_outages/manifest.json
+            custom_components/unison_nz/manifest.json
 
       - name: Commit manifest version bump
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: bump manifest version to ${{ steps.version.outputs.version }}"
-          file_pattern: custom_components/unison_outages/manifest.json
+          file_pattern: custom_components/unison_nz/manifest.json
 
       - name: Create zip asset
         run: |
           cd custom_components
-          zip -r ../unison_outages.zip unison_outages/
+          zip -r ../unison_nz.zip unison_nz/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: "v${{ steps.version.outputs.version }}"
           body: ${{ steps.changelog.outputs.notes }}
-          files: unison_outages.zip
+          files: unison_nz.zip

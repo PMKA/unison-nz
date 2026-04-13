@@ -3,14 +3,14 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 
-from .coordinator import UnisonOutagesDataUpdateCoordinator
+from .coordinator import UnisonNzDataUpdateCoordinator
 from .const import DOMAIN
 
 PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Unison Outages from a config entry."""
-    coordinator = UnisonOutagesDataUpdateCoordinator(hass)
+    coordinator = UnisonNzDataUpdateCoordinator(hass)
     await coordinator.async_config_entry_first_refresh()
     
     hass.data.setdefault(DOMAIN, {})

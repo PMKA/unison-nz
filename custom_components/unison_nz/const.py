@@ -2,7 +2,7 @@
 from datetime import timedelta
 from typing import Final
 
-DOMAIN = "unison_outages"
+DOMAIN = "unison_nz"
 API_URL = "https://www.unison.co.nz/api/outage"
 
 # Configuration

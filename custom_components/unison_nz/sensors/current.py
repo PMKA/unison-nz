@@ -9,11 +9,11 @@ from homeassistant.const import STATE_UNKNOWN
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .base import UnisonOutagesBaseSensor
+from .base import UnisonNzBaseSensor
 
 _LOGGER = logging.getLogger(__name__)
 
-class UnisonCurrentOutagesSensor(UnisonOutagesBaseSensor):
+class UnisonCurrentOutagesSensor(UnisonNzBaseSensor):
     """Sensor for current outages."""
 
     def __init__(

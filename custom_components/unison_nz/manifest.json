@@ -1,5 +1,5 @@
 {
-    "domain": "unison_outages",
+    "domain": "unison_nz",
     "name": "Unison Outages",
     "config_flow": true,
     "documentation": "https://github.com/PMKA/homeassistant-unison-outages",

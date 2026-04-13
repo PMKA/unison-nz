@@ -4,10 +4,10 @@ from unittest.mock import AsyncMock, MagicMock
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from custom_components.unison_outages.sensors import (
+from custom_components.unison_nz.sensors import (
     UnisonCurrentOutagesSensor,
     UnisonUpcomingOutagesSensor,
-    UnisonOutageStatsSensor,
+    UnisonNztatsSensor,
 )
 
 @pytest.fixture
@@ -81,7 +81,7 @@ def test_stats_sensor(mock_coordinator, mock_config_entry):
         {"networkRegion": "Rotorua", "outageState": "Recent", "outageStatus": "Cancelled", "customersOff": 300, "areaAffected": "Area C", "startTime": recent, "finishTime": recent, "outageType": "Planned Outage", "outageID": "3", "latitude": -38.1, "longitude": 176.3, "radius": 500},
     ]
 
-    sensor = UnisonOutageStatsSensor(mock_coordinator, mock_config_entry, "Rotorua")
+    sensor = UnisonNztatsSensor(mock_coordinator, mock_config_entry, "Rotorua")
     assert sensor.native_value == 3
 
     attributes = sensor.extra_state_attributes
@@ -180,7 +180,7 @@ def test_stats_calculations(mock_coordinator, mock_config_entry):
         },
     ]
 
-    sensor = UnisonOutageStatsSensor(mock_coordinator, mock_config_entry, "Rotorua")
+    sensor = UnisonNztatsSensor(mock_coordinator, mock_config_entry, "Rotorua")
     stats = sensor.extra_state_attributes["statistics"]
 
     assert stats["average_customers_per_outage"] == 150

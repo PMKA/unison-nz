@@ -1,10 +1,10 @@
 """Unison Outages sensors."""
 from .current import UnisonCurrentOutagesSensor
 from .upcoming import UnisonUpcomingOutagesSensor
-from .stats import UnisonOutageStatsSensor
+from .stats import UnisonNztatsSensor
 
 __all__ = [
     "UnisonCurrentOutagesSensor",
     "UnisonUpcomingOutagesSensor",
-    "UnisonOutageStatsSensor",
+    "UnisonNztatsSensor",
 ]

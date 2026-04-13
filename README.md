@@ -27,7 +27,7 @@ You can add a separate integration entry for each region if needed.
 
 ### Manual
 
-1. Copy the `custom_components/unison_outages` folder into your Home Assistant `config/custom_components/` directory.
+1. Copy the `custom_components/unison_nz` folder into your Home Assistant `config/custom_components/` directory.
 2. Restart Home Assistant.
 
 ---

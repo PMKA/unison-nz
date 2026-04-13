@@ -5,7 +5,7 @@ import pytest
 from homeassistant import config_entries, data_entry_flow
 from homeassistant.core import HomeAssistant
 
-from custom_components.unison_outages.const import (
+from custom_components.unison_nz.const import (
     DOMAIN,
     CONF_REGION,
     CONF_HISTORY_DAYS,
@@ -22,7 +22,7 @@ async def test_form(hass: HomeAssistant) -> None:
 
     # Test valid configuration
     with patch(
-        "custom_components.unison_outages.config_flow.UnisonOutagesConfigFlow._async_current_entries",
+        "custom_components.unison_nz.config_flow.UnisonNzConfigFlow._async_current_entries",
         return_value=[],
     ):
         result2 = await hass.config_entries.flow.async_configure(

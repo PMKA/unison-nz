@@ -18,7 +18,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Configurable history window (0-30 days) and forecast window (1-90 days).
 - Outage attributes include area, reason, times, duration, customers affected, severity, and coordinates.
 - Duplicate region entries blocked via unique ID in config flow.
-- HACS-compatible repository layout under `custom_components/unison_outages/`.
+- HACS-compatible repository layout under `custom_components/unison_nz/`.
 - Integration icon at 256x256 PNG.
 
 ### Fixed

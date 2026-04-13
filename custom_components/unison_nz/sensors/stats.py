@@ -8,9 +8,9 @@ from homeassistant.const import STATE_UNKNOWN
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .base import UnisonOutagesBaseSensor
+from .base import UnisonNzBaseSensor
 
-class UnisonOutageStatsSensor(UnisonOutagesBaseSensor):
+class UnisonNztatsSensor(UnisonNzBaseSensor):
     """Sensor for outage statistics and historical data."""
 
     def __init__(
