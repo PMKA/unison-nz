@@ -1,0 +1,14 @@
+{
+    "domain": "unison_outages",
+    "name": "Unison Outages",
+    "config_flow": true,
+    "documentation": "https://github.com/PMKA/homeassistant-unison-outages",
+    "requirements": [
+        "aiohttp>=3.8.0"
+    ],
+    "dependencies": [],
+    "codeowners": ["@PMKA"],
+    "iot_class": "cloud_polling",
+    "version": "0.1.0"
+}
+  
