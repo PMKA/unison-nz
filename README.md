@@ -148,7 +148,6 @@ Data is refreshed every 5 minutes from the Unison outage API.
 ## Requirements
 
 - Home Assistant 2024.1.0 or later
-- Internet access to reach `https://www.unison.co.nz/api/outage`
 
 ---
 
