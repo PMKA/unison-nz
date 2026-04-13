@@ -1,8 +1,9 @@
 {
     "domain": "unison_nz",
-    "name": "Unison Outages",
+    "name": "Unison NZ",
     "config_flow": true,
-    "documentation": "https://github.com/PMKA/homeassistant-unison-outages",
+    "documentation": "https://github.com/PMKA/unison-nz",
+    "issue_tracker": "https://github.com/PMKA/unison-nz/issues",
     "requirements": [
         "aiohttp>=3.8.0"
     ],
