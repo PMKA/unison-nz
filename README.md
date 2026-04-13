@@ -139,6 +139,87 @@ location:
 
 ---
 
+## Automations
+
+Replace `sensor.current_outages` and `sensor.upcoming_outages` with the actual entity IDs for your region (e.g. `sensor.current_outages_rotorua`). Replace `notify.mobile_app_your_phone` with your notification service.
+
+### Active outage alert
+
+Triggers as soon as an outage becomes active in your region.
+
+```yaml
+automation:
+  - alias: "Unison - Active outage alert"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.current_outages
+        above: 0
+    action:
+      - service: notify.mobile_app_your_phone
+        data:
+          title: "Power outage active"
+          message: >
+            {{ state_attr('sensor.current_outages', 'outages') | length }} outage(s) active.
+            {{ state_attr('sensor.current_outages', 'customers_affected') }} customers affected.
+```
+
+### Planned outage tomorrow
+
+Runs each evening and notifies if there is a scheduled outage starting the next day.
+
+```yaml
+automation:
+  - alias: "Unison - Planned outage tomorrow"
+    trigger:
+      - platform: time
+        at: "19:00:00"
+    condition:
+      - condition: template
+        value_template: >
+          {% set tomorrow = (now() + timedelta(days=1)).date() %}
+          {% set outages = state_attr('sensor.upcoming_outages', 'outages') or [] %}
+          {{ outages | selectattr('time.start', 'defined')
+             | selectattr('time.start', 'search', tomorrow | string)
+             | list | count > 0 }}
+    action:
+      - service: notify.mobile_app_your_phone
+        data:
+          title: "Planned outage tomorrow"
+          message: >
+            {% set tomorrow = (now() + timedelta(days=1)).date() %}
+            {% set outages = state_attr('sensor.upcoming_outages', 'outages') or [] %}
+            {% set scheduled = outages | selectattr('time.start', 'search', tomorrow | string) | list %}
+            {{ scheduled | length }} outage(s) scheduled tomorrow.
+            First affected area: {{ scheduled[0].area }},
+            {{ scheduled[0].time.start }}.
+```
+
+### Planned outage within 7 days
+
+Runs each morning and notifies if any outage is scheduled in the next 7 days.
+
+```yaml
+automation:
+  - alias: "Unison - Planned outage within 7 days"
+    trigger:
+      - platform: time
+        at: "08:00:00"
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.upcoming_outages
+        above: 0
+    action:
+      - service: notify.mobile_app_your_phone
+        data:
+          title: "Upcoming planned outage"
+          message: >
+            {% set outages = state_attr('sensor.upcoming_outages', 'outages') or [] %}
+            {{ outages | length }} outage(s) scheduled in the next 7 days.
+            Next: {{ outages[0].area }} on {{ outages[0].time.friendly_start }}.
+```
+
+---
+
 ## Updates
 
 Data is refreshed every 5 minutes from the Unison outage API.
