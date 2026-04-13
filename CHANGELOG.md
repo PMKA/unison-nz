@@ -2,16 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
-This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
 ---
 
-## [0.1.0] - 2026-04-14
+## [0.1.0] — Initial Release - 2026-04-14
 
-### Added
+### What's New
 
-- Initial release.
 - Three sensors per integration entry: Current Outages, Upcoming Outages, Outage Statistics.
 - Region filtering for Hawke's Bay (Hastings and Napier), Rotorua, Taupō, and All Regions.
 - Optional area/street-level filtering within a region.
@@ -21,7 +17,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - HACS-compatible repository layout under `custom_components/unison_nz/`.
 - Integration icon at 256x256 PNG.
 
-### Fixed
+### What's Fixed
 
 - Outages with a null `finishTime` (Under Investigation status) no longer crash the sensor.
 - Taupō region filtering now correctly matches the API response which omits the macron.

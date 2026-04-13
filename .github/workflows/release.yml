@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Extract version from tag
         id: version
@@ -24,8 +26,28 @@ jobs:
         id: changelog
         run: |
           VERSION="${{ steps.version.outputs.version }}"
-          # Pull out the section for this version from CHANGELOG.md
+
+          # Extract description from header: ## [0.1.0] — Description - date
+          TITLE_LINE=$(grep -m1 "^## \[$VERSION\]" CHANGELOG.md || true)
+          if echo "$TITLE_LINE" | grep -q " — "; then
+            DESCRIPTION=$(echo "$TITLE_LINE" | sed 's/.*— //' | sed 's/ - [0-9].*//')
+            RELEASE_NAME="v$VERSION — $DESCRIPTION"
+          else
+            RELEASE_NAME="v$VERSION"
+          fi
+          echo "release_name=$RELEASE_NAME" >> "$GITHUB_OUTPUT"
+
+          # Extract body for this version
           NOTES=$(awk "/^## \[$VERSION\]/{found=1; next} found && /^## \[/{exit} found{print}" CHANGELOG.md)
+
+          # Append Full Changelog link if a previous tag exists
+          PREV_TAG=$(git tag --sort=-version:refname | grep -v "^${GITHUB_REF_NAME}$" | head -1 || true)
+          if [ -n "$PREV_TAG" ]; then
+            NOTES="$NOTES
+
+Full Changelog: [$PREV_TAG...${GITHUB_REF_NAME}](https://github.com/${{ github.repository }}/compare/$PREV_TAG...${GITHUB_REF_NAME})"
+          fi
+
           {
             echo "notes<<EOF"
             echo "$NOTES"
@@ -44,14 +66,8 @@ jobs:
           commit_message: "chore: bump manifest version to ${{ steps.version.outputs.version }}"
           file_pattern: custom_components/unison_nz/manifest.json
 
-      - name: Create zip asset
-        run: |
-          cd custom_components
-          zip -r ../unison_nz.zip unison_nz/
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: "v${{ steps.version.outputs.version }}"
+          name: "${{ steps.changelog.outputs.release_name }}"
           body: ${{ steps.changelog.outputs.notes }}
-          files: unison_nz.zip
