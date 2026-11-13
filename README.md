@@ -164,4 +164,6 @@ Data is refreshed every 5 minutes from the Unison outage API. If an update fails
 
 ## License
 
+MIT, see [LICENSE](LICENSE).
+
 This project is not affiliated with or endorsed by Unison Networks Limited.

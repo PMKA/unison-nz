@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.2.1]
+
+### What's Changed
+
+- Added an MIT licence.
+- Manifest tidied up so it passes Home Assistant's and HACS's validation, which now run on every push.
+
+---
+
 ## [0.2.0]
 
 ### What's Fixed

@@ -1,14 +1,12 @@
 {
     "domain": "unison_nz",
     "name": "Unison NZ",
-    "config_flow": true,
-    "documentation": "https://github.com/PMKA/unison-nz",
-    "issue_tracker": "https://github.com/PMKA/unison-nz/issues",
-    "dependencies": [],
     "codeowners": [
         "@PMKA"
     ],
+    "config_flow": true,
+    "documentation": "https://github.com/PMKA/unison-nz",
     "iot_class": "cloud_polling",
-    "version": "0.2.0",
-    "requirements": []
+    "issue_tracker": "https://github.com/PMKA/unison-nz/issues",
+    "version": "0.2.1"
 }
