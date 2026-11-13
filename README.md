@@ -39,17 +39,28 @@ After installation, add the integration via **Settings > Devices and Services > 
 | Field | Description | Default |
 |---|---|---|
 | Region | Region to monitor | Rotorua |
-| Areas | Optional comma-separated list of suburbs or street names to filter results (e.g. `Owhata, Springfield Road`) | All areas |
+| Areas | Optional comma-separated list of suburbs or street names to filter results (e.g. `Hospital Hill, Taradale Road`) | All areas |
 | Days of history | How many days of recent/completed outages to include in statistics (0-30) | 7 |
 | Days forecast | How far ahead to show scheduled outages (1-90) | 30 |
 
 Duplicate entries for the same region are blocked. Adding a second entry for a different region is fully supported.
 
+Areas and the day ranges can be changed later from the integration's Configure button.
+
 ---
 
 ## Sensors
 
-Three sensors are created per integration entry.
+Five entities are created per integration entry, grouped under one device.
+
+### At home
+
+These use your Home Assistant home location (Settings, System, General) and the outage areas Unison publishes, so they tell you whether an outage actually covers your house, without needing to set any areas.
+
+- **Power Outage at Home** (`binary_sensor`): on while a current outage covers your home. Attribute `outages` lists them.
+- **Next Planned Outage at Home** (`sensor`, timestamp): when the next scheduled outage covering your home starts. Its attributes are the outage object described below.
+
+Every outage object also has `affects_home: true/false`, so the other sensors can be filtered the same way in templates.
 
 ### Current Outages
 
@@ -63,7 +74,6 @@ Attributes:
 |---|---|
 | `outages` | List of active outage objects (see below) |
 | `customers_affected` | Total customers currently without power |
-| `last_updated` | Timestamp of the last successful data fetch |
 
 Active outages include statuses: Active, Partial Restoration, Under Investigation.
 
@@ -81,7 +91,6 @@ Attributes:
 |---|---|
 | `outages` | List of scheduled outage objects |
 | `customers_affected` | Total customers affected by scheduled outages |
-| `last_updated` | Timestamp of the last successful data fetch |
 
 ---
 
@@ -104,7 +113,6 @@ Attributes:
 | `statistics.outage_types.planned` | Count of planned outages |
 | `statistics.outage_types.unplanned` | Count of unplanned outages |
 | `cancelled_outages` | Details of cancelled outages within the window |
-| `last_updated` | Timestamp of the last successful data fetch |
 
 ---
 
@@ -112,9 +120,11 @@ Attributes:
 
 Each entry in an `outages` list has the following shape:
 
+Times are in New Zealand local time.
+
 ```yaml
-id: "SP 421019521"
-area: "SPRINGFIELD ROAD, OTONGA ROAD"
+id: "SP 421000000"
+area: "EXAMPLE STREET,SAMPLE ROAD"
 reason: "Network Maintenance"
 time:
   start: "2026-04-15 09:00"
@@ -131,23 +141,24 @@ impact:
   status: "Scheduled"
 location:
   region: "Rotorua"
-  coordinates:
-    latitude: -38.159
-    longitude: 176.237
-    radius: 206          # metres; null for point outages
+  coordinates:           # always null: Unison now publishes outage areas instead of a point
+    latitude: null
+    longitude: null
+    radius: null
+affects_home: false
 ```
 
 ---
 
 ## Updates
 
-Data is refreshed every 5 minutes from the Unison outage API.
+Data is refreshed every 5 minutes from the Unison outage API. If an update fails, the last data is kept for up to 30 minutes before the sensors go unavailable.
 
 ---
 
 ## Requirements
 
-- Home Assistant 2024.1.0 or later
+- Home Assistant 2024.12.0 or later
 
 ---
 
