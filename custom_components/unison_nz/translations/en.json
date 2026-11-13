@@ -2,54 +2,30 @@
     "config": {
         "step": {
             "user": {
-                "title": "Unison Outages Configuration",
-                "description": "Set up Unison Outages monitoring. You can select which region to monitor and optionally specify suburbs or streets to filter.",
+                "title": "Unison Outages",
+                "description": "Pick the region to monitor. The \"at home\" sensors use your Home Assistant home location, so they work without any areas set.",
                 "data": {
-                    "region": "Region to monitor",
-                    "areas": "Areas to monitor (optional, comma-separated list e.g., 'Owhata, Springfield Road')",
-                    "days_history": "Days of history to keep (0-30)",
-                    "days_forecast": "Days of future outages to show (1-90)"
+                    "region": "Region",
+                    "areas": "Areas to filter by (optional, comma-separated suburbs or street names)",
+                    "days_history": "Days of history in the statistics (0-30)",
+                    "days_forecast": "Days ahead to show scheduled outages (1-90)"
                 }
             }
         },
-        "error": {
-            "invalid_history_days": "History days must be between 0 and 30",
-            "invalid_forecast_days": "Forecast days must be between 1 and 90",
-            "cannot_connect": "Failed to connect",
-            "unknown": "Unexpected error"
-        },
         "abort": {
-            "single_instance_allowed": "Already configured. Only a single instance is allowed."
+            "already_configured": "This region is already set up."
         }
     },
-    "entity": {
-        "sensor": {
-            "current_outages": {
-                "name": "Current Outages",
-                "state_attributes": {
-                    "outages": "List of current outages"
-                }
-            },
-            "upcoming_outages": {
-                "name": "Upcoming Outages",
-                "state_attributes": {
-                    "outages": "List of upcoming outages"
-                }
-            },
-            "cancelled_outages": {
-                "name": "Cancelled Outages",
-                "state_attributes": {
-                    "outages": "List of cancelled outages"
-                }
-            },
-            "total_outages": {
-                "name": "Total Outages",
-                "state_attributes": {
-                    "current": "Number of current outages",
-                    "upcoming": "Number of upcoming outages",
-                    "cancelled": "Number of cancelled outages"
+    "options": {
+        "step": {
+            "init": {
+                "title": "Unison Outages options",
+                "data": {
+                    "areas": "Areas to filter by (optional, comma-separated suburbs or street names)",
+                    "days_history": "Days of history in the statistics (0-30)",
+                    "days_forecast": "Days ahead to show scheduled outages (1-90)"
                 }
             }
         }
     }
-} 
+}
